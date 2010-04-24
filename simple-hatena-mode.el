@@ -560,6 +560,12 @@ message."
       (simple-hatena-internal-go-for -1)
     (simple-hatena-internal-go-for (- i))))
 
+(defun simple-hatena-open-current-url ()
+  "今開いているバッファに対応するHTTP URLをウェブブラウザで開く。"
+  (interactive)
+  (simple-hatena-create-base-httpurl)
+  (browse-url simple-hatena-local-current-buffer-basehttpurl))
+
 (defun simple-hatena-toggle-debug-mode ()
   "デバッグモードをオン/オフする。"
   (interactive)
