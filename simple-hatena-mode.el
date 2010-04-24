@@ -257,6 +257,7 @@ http://coderepos.org/share/wiki/SimpleHatenaMode"
   (make-local-variable 'simple-hatena-local-current-buffer-year)
   (make-local-variable 'simple-hatena-local-current-buffer-month)
   (make-local-variable 'simple-hatena-local-current-buffer-day)
+  (make-local-variable 'simple-hatena-local-current-buffer-basehttpurl)
 
   (if (string-match simple-hatena-filename-regex (buffer-file-name))
       (progn
@@ -740,6 +741,20 @@ dirが存在しない場合は`simple-hatena-setup'を呼ぶ。"
           (format "id:%s" simple-hatena-local-current-buffer-id))))
     (setq mode-name (format "Simple Hatena [%s]" id))
     (force-mode-line-update)))
+
+(defun simple-hatena-create-base-httpurl ()
+  (setq simple-hatena-local-current-buffer-basehttpurl
+        (concat
+         (if simple-hatena-local-current-buffer-group
+             (format "http://%s.g.hatena.ne.jp/%s/"
+                     simple-hatena-local-current-buffer-group
+                     simple-hatena-local-current-buffer-id)
+         (format "http://d.hatena.ne.jp/%s/"
+                 simple-hatena-local-current-buffer-id))
+         (format "%s%s%s"
+                 simple-hatena-local-current-buffer-year
+                 simple-hatena-local-current-buffer-month
+                 simple-hatena-local-current-buffer-day))))
 
 (provide 'simple-hatena-mode)
 
